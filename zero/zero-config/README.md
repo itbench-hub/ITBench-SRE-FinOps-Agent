@@ -39,6 +39,21 @@ python -m zero --workspace /tmp/work-finops \
     -- exec -m "openai/gpt-5.1" "Begin investigation"
 ```
 
+**CISO OPA Compliance Check:**
+
+```bash
+# Prerequisites: Install OPA (Open Policy Agent)
+# macOS: brew install opa
+# Linux/Windows: https://www.openpolicyagent.org/docs/latest/#running-opa
+
+# Run CISO agent on a Kubernetes OPA compliance scenario
+python -m zero --workspace /tmp/work-ciso \
+    --read-only-dir ./ITBench-Lite/snapshots/ciso/v0.1/k8s-opa-static-cis-5.1.1 \
+    --prompt-file ./zero/zero-config/prompts/ciso_opa_compliance.md \
+    --variable "SNAPSHOT_DIRS=- /path/to/ITBench-Lite/snapshots/ciso/v0.1/k8s-opa-static-cis-5.1.1" \
+    -- exec -m "gemini-2.5-pro" "Create fetch.sh and policy.rego for this compliance check"
+```
+
 **Other modes:**
 
 ```bash
