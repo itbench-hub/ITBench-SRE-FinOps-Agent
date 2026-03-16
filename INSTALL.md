@@ -52,9 +52,13 @@ uv run python -m itbench_evaluations --help
 The `zero` agent runner requires the OpenAI Codex CLI:
 
 ```bash
-# Install Codex CLI (requires Node.js 22+)
-npm install -g @openai/codex
-# tested with version 0.69 and 0.71
+# Install Codex CLI version 0.94.0 (REQUIRED)
+# IMPORTANT: Must use exactly version 0.94.0
+# Later versions have OpenRouter compatibility issues: https://github.com/openai/codex/issues/12114
+npm install -g @openai/codex@0.94.0
+
+# Verify installation
+codex --version  # Should show 0.94.0
 ```
 
 Or follow the official instructions: https://github.com/openai/codex
@@ -273,7 +277,10 @@ pip install tomli
 
 1. Ensure Node.js 22+ is installed
 2. Check Codex is in PATH: `which codex`
-3. Verify API key: `echo $OPENAI_API_KEY`
+3. **Verify you have exactly version 0.94.0**: `codex --version`
+   - If not, reinstall: `npm install -g @openai/codex@0.94.0`
+   - Later versions have OpenRouter compatibility issues (see [#12114](https://github.com/openai/codex/issues/12114))
+4. Verify API key: `echo $OPENAI_API_KEY`
 
 **Note:** If you see `401 Unauthorized` errors from `https://chatgpt.com/backend-api/codex/models`, these can be safely ignored. Codex tries to refresh its model catalog but this doesn't affect agent execution when using LiteLLM proxy with explicit model names. The agent will continue running normally.
 

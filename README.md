@@ -76,8 +76,14 @@ The SRE Tools module provides specialized MCP (Model Context Protocol) tools for
 - Python 3.12 or 3.13 (avoid 3.14)
 - [uv](https://github.com/astral-sh/uv) (recommended) or pip
 - [Node.js and npm](https://nodejs.org/) (required to install Codex CLI)
-- [Codex CLI](https://github.com/openai/codex) installed (`npm install -g @openai/codex`)
+- [Codex CLI](https://github.com/openai/codex) version **0.94.0** (REQUIRED)
+  - Install with: `npm install -g @openai/codex@0.94.0`
+  - ⚠️ **Later versions have OpenRouter compatibility issues** ([#12114](https://github.com/openai/codex/issues/12114))
 - **[Podman](https://podman.io/docs/installation) or [Docker](https://docs.docker.com/get-docker/)** (required for ClickHouse and Instana MCP servers)
+- **[OPA (Open Policy Agent)](https://www.openpolicyagent.org/)** (required for CISO compliance scenarios)
+  - macOS: `brew install opa`
+  - Linux: See [OPA installation guide](https://www.openpolicyagent.org/docs/latest/#running-opa)
+  - Windows: Download from [OPA releases](https://github.com/open-policy-agent/opa/releases)
 - API keys for your model provider (OpenRouter, Azure, etc.)
 
 > **Note:** The ClickHouse and Instana MCP servers run via Podman/Docker containers. We use the official [mcp-clickhouse](https://github.com/ClickHouse/mcp-clickhouse) and [mcp-instana](https://github.com/instana/mcp-instana) Docker images instead of Python packages to avoid dependency conflicts with `litellm[proxy]` (which requires `rich==13.7.1`, incompatible with mcp-instana's `rich>=13.9.4`).
@@ -93,6 +99,14 @@ cd ITBench-SRE-Agent
 
 # Or if already cloned, initialize submodules:
 # git submodule update --init --recursive
+
+# Install Codex CLI version 0.94.0 (REQUIRED - exact version)
+npm install -g @openai/codex@0.94.0
+
+# Install OPA (for CISO compliance scenarios)
+# macOS:
+brew install opa
+# Linux/Windows: see https://www.openpolicyagent.org/docs/latest/#running-opa
 
 # Install dependencies
 uv sync
